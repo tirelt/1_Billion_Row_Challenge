@@ -1,0 +1,11 @@
+Lawrenceville;77.8
+Atmākūr;35.6
+Idlib;81.1
+Nonoichi;75.9
+Malaimāchchampatti;12.6
+Mutukula;59.8
+Sandalpur;25.9
+Sandalpur;29.9
+Sandalpur;10
+Ghagga;-3.5
+Casas Adobes;33.9

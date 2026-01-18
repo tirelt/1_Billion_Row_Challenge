@@ -3,26 +3,18 @@ import qualified Data.Map as M
 import Control.Monad
 import Data.List
 
-newtype Record = Record { getRecord :: (Int,Int,Int,Int) }
-
 main :: IO ()
 main = do
     contents <- readFile "../data/measurements.txt"  
-    --let res = foldl update M.empty (lines contents)
-    foldM_ printAndUpdate M.empty (lines contents)
+    let res = foldl' update M.empty (lines contents)
+    print $ M.lookup "Bytom" res
 
-printAndUpdate acc line = do
-    let acc' = update acc line
-    print acc'
-    return acc'
+update map line = 
+    let 
+        (city,_:tempString) = break (==';') line
+        temp = read tempString :: Float
+    in M.insertWith aggregate city (temp,temp,temp,1) map
 
-update :: M.Map [Char] Int -> [Char] -> M.Map [Char] Int
-update map line = M.insert city (newVal exist) map
-    where 
-        (city,temp) = parse line
-        exist = M.lookup city map
-        newVal (Just n) = n + 1
-        newVal _ = 1
+aggregate (oldMin,oldMax,oldSum,oldCount) (newMin,newMax,newSum,newCount) = (min oldMin newMin,max oldMax newMax, oldSum + newSum,oldCount+newCount)
 
 
-parse line = let (city,_:tempString) = break (==';') line in (city, read tempString :: Float)
