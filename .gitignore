@@ -39,3 +39,6 @@ target
 
 data/measurements.txt
 __pycache__
+
+# Cargo files
+Cargo.lock
